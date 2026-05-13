@@ -86,9 +86,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.axonframework</groupId>
-			<artifactId>axon-modelling</artifactId>
+			<artifactId>axon-spring-boot-starter</artifactId>
 			<version>4.13.1</version>
-			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
