@@ -4,6 +4,7 @@ import com.learnmicro.bookservice.command.data.Book;
 import com.learnmicro.bookservice.command.data.BookRepository;
 import com.learnmicro.bookservice.query.model.BookResponseModel;
 import com.learnmicro.bookservice.query.queries.GetAllBookQuery;
+import com.learnmicro.bookservice.query.queries.GetBookDetailQuery;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -36,5 +38,14 @@ public class BookProjection {
 //            return model;
 //        }).toList();
         return bookResponseModels;
+    }
+
+    @QueryHandler
+    public BookResponseModel handle(GetBookDetailQuery query) {
+        BookResponseModel bookResponseModel = new BookResponseModel();
+        bookRepository.findById(query.getId()).ifPresent(book -> {
+            BeanUtils.copyProperties(book, bookResponseModel);
+        });
+        return bookResponseModel;
     }
 }
