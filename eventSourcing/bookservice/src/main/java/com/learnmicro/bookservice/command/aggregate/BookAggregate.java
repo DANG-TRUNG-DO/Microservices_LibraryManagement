@@ -43,6 +43,10 @@ public class BookAggregate {
         BookUpdatedEvent bookUpdatedEvent = new BookUpdatedEvent();
         BeanUtils.copyProperties(command, bookUpdatedEvent);
         AggregateLifecycle.apply(bookUpdatedEvent);
+        System.out.println("== Command Handler ==");
+        System.out.println("Book ID: " + command.getId());
+        System.out.println("Book Name: " + command.getName());
+        System.out.println("Book Author: " + command.getAuthor());
     }
 
     @CommandHandler
@@ -68,6 +72,10 @@ public class BookAggregate {
         this.name = event.getName();
         this.author = event.getAuthor();
         this.isReady = event.getIsReady();
+        System.out.println("== Event Sourcing Handler ==");
+        System.out.println("ID: " +  this.id);
+        System.out.println("Name: " +  this.name);
+        System.out.println("Author: " +  this.author);
     }
 
     @EventSourcingHandler

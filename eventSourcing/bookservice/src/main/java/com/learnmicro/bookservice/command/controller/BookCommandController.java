@@ -25,6 +25,10 @@ public class BookCommandController {
 
     @PutMapping("/{bookId}")
     public String updateBook(@RequestBody BookRequestModel model, @PathVariable String bookId) {
+        System.out.println("== Book Command Controller ==");
+        System.out.println("ID: " + bookId);
+        System.out.println("Name: " + model.getName());
+        System.out.println("Author: " + model.getAuthor());
         UpdateBookCommand updateBookCommand = new UpdateBookCommand(bookId, model.getName(), model.getAuthor(), model.getIsReady());
         return commandGateway.sendAndWait(updateBookCommand);
     }
