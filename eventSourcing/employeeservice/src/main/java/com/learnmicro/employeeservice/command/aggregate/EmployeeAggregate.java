@@ -1,7 +1,11 @@
 package com.learnmicro.employeeservice.command.aggregate;
 
 import com.learnmicro.employeeservice.command.command.CreateEmployeeCommand;
+import com.learnmicro.employeeservice.command.command.DeleteEmployeeCommand;
+import com.learnmicro.employeeservice.command.command.UpdateEmployeeCommand;
 import com.learnmicro.employeeservice.command.event.EmployeeCreatedEvent;
+import com.learnmicro.employeeservice.command.event.EmployeeDeletedEvent;
+import com.learnmicro.employeeservice.command.event.EmployeeUpdatedEvent;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -28,6 +32,20 @@ public class EmployeeAggregate {
         AggregateLifecycle.apply(event);
     }
 
+    @CommandHandler
+    public void handle(UpdateEmployeeCommand command) {
+        EmployeeUpdatedEvent event = new EmployeeUpdatedEvent();
+        BeanUtils.copyProperties(command, event);
+        AggregateLifecycle.apply(event);
+    }
+
+    @CommandHandler
+    public void handle(DeleteEmployeeCommand command) {
+        EmployeeDeletedEvent event = new EmployeeDeletedEvent();
+        BeanUtils.copyProperties(command, event);
+        AggregateLifecycle.apply(event);
+    }
+
     @EventSourcingHandler
     public void on(EmployeeCreatedEvent event) {
         this.id = event.getId();
@@ -35,6 +53,19 @@ public class EmployeeAggregate {
         this.lastName = event.getLastName();
         this.Kin = event.getKin();
         this.isDisciplined = event.getIsDisciplined();
+    }
 
+    @EventSourcingHandler
+    public void on(EmployeeUpdatedEvent event) {
+        this.id = event.getId();
+        this.firstName = event.getFirstName();
+        this.lastName = event.getLastName();
+        this.Kin = event.getKin();
+        this.isDisciplined = event.getIsDisciplined();
+    }
+
+    @EventSourcingHandler
+    public void on(EmployeeDeletedEvent event) {
+        this.id = event.getId();
     }
 }
