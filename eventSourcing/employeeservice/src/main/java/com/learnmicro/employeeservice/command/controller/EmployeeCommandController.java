@@ -6,6 +6,8 @@ import com.learnmicro.employeeservice.command.command.UpdateEmployeeCommand;
 import com.learnmicro.employeeservice.command.data.Employee;
 import com.learnmicro.employeeservice.command.model.CreateEmployeeModel;
 import com.learnmicro.employeeservice.command.model.UpdateEmployeeModel;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/employees")
+@Tag(name = "Employee command")
 public class EmployeeCommandController {
     @Autowired
     private CommandGateway commandGateway;
@@ -33,6 +36,7 @@ public class EmployeeCommandController {
         return commandGateway.sendAndWait(command);
     }
 
+    //@Hidden
     @DeleteMapping("/{employeeID}")
     public String deleteEmployee(@PathVariable("employeeID") String employeeID) {
         DeleteEmployeeCommand command =
