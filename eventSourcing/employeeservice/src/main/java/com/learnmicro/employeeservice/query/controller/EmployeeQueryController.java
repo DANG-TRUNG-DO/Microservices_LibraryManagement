@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/employees")
 @Tag(name = "Employee query")
+@Slf4j
 //@Hidden
 public class EmployeeQueryController {
 
@@ -40,6 +42,7 @@ public class EmployeeQueryController {
 
     @GetMapping
     public List<EmployeeResponseModel> getEmployees(@RequestParam(required = false, defaultValue = "false") Boolean isDisciplined) {
+        log.info("Get all employees");
         List<EmployeeResponseModel> list = queryGateway
                 .query(new GetAllEmployeeQuery(isDisciplined), ResponseTypes.multipleInstancesOf(EmployeeResponseModel.class)).join();
         return list;
