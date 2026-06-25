@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Borrrowing {
+public class Borrowing {
     @Id
     private String id;
     private String bookId;

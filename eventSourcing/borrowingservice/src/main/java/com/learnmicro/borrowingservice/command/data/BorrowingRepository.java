@@ -2,5 +2,5 @@ package com.learnmicro.borrowingservice.command.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BorrowingRepository extends JpaRepository<Borrrowing, String> {
+public interface BorrowingRepository extends JpaRepository<Borrowing, String> {
 }
