@@ -1,17 +1,17 @@
 package com.learnmicro.employeeservice.query.projection;
 
+import com.learnmicro.commonservice.model.EmployeeResponseCommonModel;
 import com.learnmicro.employeeservice.command.data.Employee;
 import com.learnmicro.employeeservice.command.data.EmployeeRepository;
 import com.learnmicro.employeeservice.query.model.EmployeeResponseModel;
 import com.learnmicro.employeeservice.query.queries.GetAllEmployeeQuery;
-import com.learnmicro.employeeservice.query.queries.GetDetailEmployeeQuery;
+import com.learnmicro.commonservice.queries.GetDetailEmployeeQuery;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class EmployeeProjection {
@@ -30,9 +30,9 @@ public class EmployeeProjection {
     }
 
     @QueryHandler
-    public EmployeeResponseModel handle(GetDetailEmployeeQuery query) throws Exception {
+    public EmployeeResponseCommonModel handle(GetDetailEmployeeQuery query) throws Exception {
         Employee employee = employeeRepository.findById(query.getId()).orElseThrow(() -> new Exception("Employee not found"));
-        EmployeeResponseModel employeeResponseModel = new EmployeeResponseModel();
+        EmployeeResponseCommonModel employeeResponseModel = new EmployeeResponseCommonModel();
         BeanUtils.copyProperties(employee, employeeResponseModel);
         return employeeResponseModel;
     }

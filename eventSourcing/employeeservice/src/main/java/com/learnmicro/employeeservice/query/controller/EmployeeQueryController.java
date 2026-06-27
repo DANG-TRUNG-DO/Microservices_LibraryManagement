@@ -1,9 +1,9 @@
 package com.learnmicro.employeeservice.query.controller;
 
+import com.learnmicro.commonservice.model.EmployeeResponseCommonModel;
 import com.learnmicro.employeeservice.query.model.EmployeeResponseModel;
 import com.learnmicro.employeeservice.query.queries.GetAllEmployeeQuery;
-import com.learnmicro.employeeservice.query.queries.GetDetailEmployeeQuery;
-import io.swagger.v3.oas.annotations.Hidden;
+import com.learnmicro.commonservice.queries.GetDetailEmployeeQuery;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -49,7 +49,7 @@ public class EmployeeQueryController {
     }
 
     @GetMapping("/{employeeId}")
-    public EmployeeResponseModel getEmployee(@PathVariable String employeeId) {
-        return queryGateway.query(new GetDetailEmployeeQuery(employeeId), ResponseTypes.instanceOf(EmployeeResponseModel.class)).join();
+    public EmployeeResponseCommonModel getEmployee(@PathVariable String employeeId) {
+        return queryGateway.query(new GetDetailEmployeeQuery(employeeId), ResponseTypes.instanceOf(EmployeeResponseCommonModel.class)).join();
     }
 }

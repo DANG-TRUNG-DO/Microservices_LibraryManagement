@@ -1,4 +1,4 @@
-package com.learnmicro.employeeservice.query.queries;
+package com.learnmicro.commonservice.queries;
 
 
 import lombok.AllArgsConstructor;
